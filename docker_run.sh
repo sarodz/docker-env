@@ -3,11 +3,13 @@ CONTAINER_NAME=math-user
 PORT=8888
 MOUNT_PATH=$HOME
 IMAGE_NAME=math-user:latest
+SHM_SIZE=6G
 dr () {
  docker run --name $CONTAINER_NAME --rm -d \
     -p $PORT:8888 \
     -p 1234:1234 \
     -p 1313:1313 \
+    --shm-size $SHM_SIZE \
     -v $MOUNT_PATH/repos:/home/jovyan/work \
     -v $MOUNT_PATH/.vimrc:/home/jovyan/.vimrc \
     -v $MOUNT_PATH/.vim:/home/jovyan/.vim \
