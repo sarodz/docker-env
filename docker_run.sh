@@ -11,7 +11,7 @@ dr () {
     -p 1234:1234 \
     -p 1313:1313 \
     --shm-size $SHM_SIZE \
-    -v $MOUNT_PATH/repos:/home/jovyan/work \
+    -v $MOUNT_PATH:/home/jovyan/work \
     -v $MOUNT_PATH/.vimrc:/home/jovyan/.vimrc \
     -v $MOUNT_PATH/.vim:/home/jovyan/.vim \
     -v $MOUNT_PATH/.bash_aliases:/home/jovyan/.bash_aliases \
