@@ -1,15 +1,15 @@
 #!/bin/bash
-TIMEPATH=/var/db/timezone/zoneinfo/America/New_York
+TIMEPATH=America/Denver
 CONFIGPATH=$HOME/.docker/appdata/firefox
 # If you want the application to have persistent memory
 # (settings, history, etc), then set KEEP=TRUE
-KEEP=TRUE
+KEEP=FALSE
 PORT=5800
 # memory allocation
 SHM_SIZE=2g
-if $KEEP; then 
+if $KEEP; then
     # persistent storage, create this directory if does not exist
-    if [ ! -d $CONFIGPATH ]; then 
+    if [ ! -d $CONFIGPATH ]; then
         mkdir -p $CONFIGPATH && \
         echo "created /appdata/firefox/ for persistent storage" ;
     fi
@@ -17,14 +17,14 @@ if $KEEP; then
         --name=firefox \
         -p $PORT:5800 \
         -v $CONFIGPATH:/config:rw \
-        -v $TIMEPATH:/etc/localtime \
+        -e "TZ=$TIMEPATH" \
         --shm-size $SHM_SIZE \
         jlesage/firefox;
 else
     docker run -d --rm \
         --name=firefox \
         -p $PORT:5800 \
-        -v $TIMEPATH:/etc/localtime \
+        -e "TZ=$TIMEPATH" \
         --shm-size $SHM_SIZE \
         jlesage/firefox;
 fi
