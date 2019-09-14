@@ -2,7 +2,8 @@
 CONTAINER_NAME=math-user
 PORT=8888
 MOUNT_PATH=$HOME
-IMAGE_NAME=math-user:latest
+# image name to run
+IMAGE_NAME=math-user:local
 SHM_SIZE=6G
 dr () {
  docker run --name $CONTAINER_NAME --rm -d \
