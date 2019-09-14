@@ -4,7 +4,7 @@ CONFIGPATH=$HOME/.docker/appdata/firefox
 # If you want the application to have persistent memory
 # (settings, history, etc), then set KEEP=TRUE
 KEEP=FALSE
-PORT=5808
+PORT=5800
 # memory allocation
 SHM_SIZE=2g
 if $KEEP; then
