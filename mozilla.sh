@@ -4,7 +4,7 @@ CONFIGPATH=$HOME/.docker/appdata/firefox
 # If you want the application to have persistent memory
 # (settings, history, etc), then set KEEP=TRUE
 KEEP=FALSE
-PORT=5800
+PORT=5808
 # memory allocation
 SHM_SIZE=2g
 if $KEEP; then
@@ -16,6 +16,7 @@ if $KEEP; then
     docker run -d --rm \
         --name=firefox \
         -p $PORT:5800 \
+        -p 8888:8888 \
         -v $CONFIGPATH:/config:rw \
         -e "TZ=$TIMEPATH" \
         --shm-size $SHM_SIZE \
@@ -24,6 +25,7 @@ else
     docker run -d --rm \
         --name=firefox \
         -p $PORT:5800 \
+        -p 8888:8888 \
         -e "TZ=$TIMEPATH" \
         --shm-size $SHM_SIZE \
         jlesage/firefox;
