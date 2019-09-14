@@ -1,7 +1,7 @@
 #!/bin/bash
 CONTAINER_NAME=math-user
 PORT=8888
-MOUNT_PATH=/Users/michael.pilosov
+MOUNT_PATH=$HOME
 IMAGE_NAME=math-user:latest
 dr () {
  docker run --name $CONTAINER_NAME --rm -d \
