@@ -2,16 +2,20 @@
 CONTAINER_NAME=math-user
 PORT=8888
 MOUNT_PATH=$HOME
+HOME_PATH=$HOME
 # image name to run
 IMAGE_NAME=math-user:local
-SHM_SIZE=6G
+# shared memory
+SHM_SIZE=1g
+# ram
+MEM=3g
+# cpu
+CPUS=3.0
 dr () {
  docker run --name $CONTAINER_NAME --rm -d \
     -p $PORT:8888 \
-    -p 1234:1234 \
-    -p 1313:1313 \
-    --shm-size $SHM_SIZE \
-    -v $MOUNT_PATH:/home/jovyan/work \
+    --memory="$MEM" --cpus="$CPUS" --shm-size="$SHM_SIZE" \
+    -v $HOME_PATH:/home/jovyan/work \
     -v $MOUNT_PATH/.vimrc:/home/jovyan/.vimrc \
     -v $MOUNT_PATH/.vim:/home/jovyan/.vim \
     -v $MOUNT_PATH/.bash_aliases:/home/jovyan/.bash_aliases \
