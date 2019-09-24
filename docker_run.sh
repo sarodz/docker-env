@@ -1,16 +1,21 @@
 #!/bin/bash
-CONTAINER_NAME=math-user-hugo
-PORT=8889
-MOUNT_PATH=$HOME
-HOME_PATH=$HOME
-# image name to run
+# choose name for your container and image from which it will be built
+CONTAINER_NAME=math-user
 IMAGE_NAME=math-user:local
+# choose an available port
+PORT=8888
+# mount files associated with personal settings 
+MOUNT_PATH=$HOME
+# working directory will be symlinked to /work inside of container
+HOME_PATH=$HOME
 # shared memory
 SHM_SIZE=1g
 # ram
 MEM=3g
 # cpu
 CPUS=3.0
+# to disable jupyterlab by default, change line JUPYTER_ENABLE_LAB=no
+# (there are a number of notebook-specific extensions unavailable in lab)
 dr () {
  docker run --name $CONTAINER_NAME --rm -d \
     -p $PORT:8888 \
