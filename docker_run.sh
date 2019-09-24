@@ -1,6 +1,6 @@
 #!/bin/bash
-CONTAINER_NAME=math-user
-PORT=8888
+CONTAINER_NAME=math-user-hugo
+PORT=8889
 MOUNT_PATH=$HOME
 HOME_PATH=$HOME
 # image name to run
