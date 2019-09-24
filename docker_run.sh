@@ -21,11 +21,11 @@ dr () {
     -p $PORT:8888 \
     --memory="$MEM" --cpus="$CPUS" --shm-size="$SHM_SIZE" \
     -v $HOME_PATH:/home/jovyan/work \
-    -v $MOUNT_PATH/.vimrc:/home/jovyan/.vimrc \
-    -v $MOUNT_PATH/.vim:/home/jovyan/.vim \
-    -v $MOUNT_PATH/.bash_aliases:/home/jovyan/.bash_aliases \
+    -v ./setup/vimrc:/home/jovyan/.vimrc \
+    -v ./setup/.vim:/home/jovyan/.vim \
+    -v ./setup/bash_aliases:/home/jovyan/.bash_aliases \
+    -v ./setup/bash_fzf:/home/jovyan/.bash_fzf \
     -v $MOUNT_PATH/docker-git-config:/home/jovyan/.gitconfig \
-    -v $MOUNT_PATH/.bash_fzf:/home/jovyan/.bash_fzf \
     -v $MOUNT_PATH/.ssh:/home/jovyan/.ssh \
     -v $MOUNT_PATH/.jupyterlab_settings:/home/jovyan/.jupyter/lab/user-settings/@jupyterlab \
     -e JUPYTER_ENABLE_LAB=yes \
