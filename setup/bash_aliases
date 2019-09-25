@@ -38,6 +38,8 @@ alias gitsu='git status -uno'
 alias gits='git status'
 alias gitcam='git commit -am "auto-commit, updates"'
 alias gitpom='git push origin master'
+alias gitr='git config credential.helper \"cache --timeout 1440000\"'
+alias gitrm='git config credential.helper \"\"'
 
 # Docker
 alias dps='docker ps -a --format "table {{.ID}} \t {{.Names}} \t {{.Status}} \t {{.Ports}} \t {{.Image}} "'
@@ -48,3 +50,5 @@ alias druni='docker run -ti --rm -p 8008:8008 --name math-user-temp -v $(pwd):/t
 HUGO_IMAGE=hugo-image:stable
 alias hugo53='docker run --rm -p 1111:1111 --name hugo-user-temp -v $(pwd):/tmp --workdir /tmp ${HUGO_IMAGE} hugo'
 alias hugo53server='hugo53 server --disableFastRender --port 1111 --bind 0.0.0.0'
+# "fake symlink" to hugo, allowing you to pick a default version
+alias hugo='hugo53'
