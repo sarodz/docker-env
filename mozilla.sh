@@ -16,7 +16,6 @@ if $KEEP; then
     docker run -d --rm \
         --name=firefox \
         -p $PORT:5800 \
-        -p 8888:8888 \
         -v $CONFIGPATH:/config:rw \
         -e "TZ=$TIMEPATH" \
         --shm-size $SHM_SIZE \
@@ -25,7 +24,6 @@ else
     docker run -d --rm \
         --name=firefox \
         -p $PORT:5800 \
-        -p 8888:8888 \
         -e "TZ=$TIMEPATH" \
         --shm-size $SHM_SIZE \
         jlesage/firefox;
