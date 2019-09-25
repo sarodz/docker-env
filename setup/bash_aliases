@@ -41,7 +41,10 @@ alias gitpom='git push origin master'
 
 # Docker
 alias dps='docker ps -a --format "table {{.ID}} \t {{.Names}} \t {{.Status}} \t {{.Ports}} \t {{.Image}} "'
-alias wdps="watch -n1 'docker ps --format \"table \t{{.Names}}\t {{.Status}} \t {{.Ports}} \t {{.Image}} \"'"
+alias wdps="watch -n1 \'docker ps --format \"table \t{{.Names}}\t {{.Status}} \t {{.Ports}} \t {{.Image}} \"\'"
 alias drun='docker run --rm -p 8008:8008 --name math-user-temp -v $(pwd):/tmp --workdir /tmp $(docker images --format "table {{.Repository}}:{{.Tag}}" | fzf)'
-alias hugo53='docker run --rm -p 1111:1111 --name hugo-user-temp -v $(pwd):/tmp --workdir /tmp mathematicalmichael/hugo53:stable hugo'
+alias druni='docker run -ti --rm -p 8008:8008 --name math-user-temp -v $(pwd):/tmp --workdir /tmp $(docker images --format "table {{.Repository}}:{{.Tag}}" | fzf)'
+#HUGO_IMAGE=mathematicalmichael/hugo53:stable
+HUGO_IMAGE=hugo-image:stable
+alias hugo53='docker run --rm -p 1111:1111 --name hugo-user-temp -v $(pwd):/tmp --workdir /tmp ${HUGO_IMAGE} hugo'
 alias hugo53server='hugo53 server --disableFastRender --port 1111 --bind 0.0.0.0'
