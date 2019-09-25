@@ -38,8 +38,8 @@ alias gitsu='git status -uno'
 alias gits='git status'
 alias gitcam='git commit -am "auto-commit, updates"'
 alias gitpom='git push origin master'
-alias gitr='git config credential.helper \"cache --timeout 1440000\"'
-alias gitrm='git config credential.helper \"\"'
+alias gitr='git config credential.helper "cache --timeout 1440000"'
+alias gitrm='git config credential.helper ""'
 
 # Docker
 alias dps='docker ps -a --format "table {{.ID}} \t {{.Names}} \t {{.Status}} \t {{.Ports}} \t {{.Image}} "'
