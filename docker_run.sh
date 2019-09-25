@@ -1,6 +1,6 @@
 #!/bin/bash
 # choose name for your container and image from which it will be built
-CONTAINER_NAME=math-user-local
+export CONTAINER_NAME=math-user-local
 IMAGE_NAME=math-user:local
 # choose an available port
 PORT=8889
@@ -21,10 +21,10 @@ dr () {
     -p $PORT:8888 \
     --memory="$MEM" --cpus="$CPUS" --shm-size="$SHM_SIZE" \
     -v $HOME_PATH:/home/jovyan/work \
-    -v ./setup/vimrc:/home/jovyan/.vimrc \
-    -v ./setup/.vim:/home/jovyan/.vim \
-    -v ./setup/bash_aliases:/home/jovyan/.bash_aliases \
-    -v ./setup/bash_fzf:/home/jovyan/.bash_fzf \
+    -v $(pwd)/setup/vimrc:/home/jovyan/.vimrc \
+    -v $(pwd)/setup/.vim:/home/jovyan/.vim \
+    -v $(pwd)/setup/bash_aliases:/home/jovyan/.bash_aliases \
+    -v $(pwd)/setup/bash_fzf:/home/jovyan/.bash_fzf \
     -v $MOUNT_PATH/docker-git-config:/home/jovyan/.gitconfig \
     -v $MOUNT_PATH/.ssh:/home/jovyan/.ssh \
     -v $MOUNT_PATH/.jupyterlab_settings:/home/jovyan/.jupyter/lab/user-settings/@jupyterlab \

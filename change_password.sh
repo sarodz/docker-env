@@ -8,7 +8,7 @@ cat docker_run.sh | sed 's/=sha[^;]*/='$NEWPASS'/g' > docker_run_new.sh
 #cat docker_run_new.sh
 rm test.txt
 echo "Stopping container."
-docker stop $CONTAINER
+docker stop $CONTAINER_NAME
 source docker_run_new.sh
 echo "Starting new container with changed password."
 dr
