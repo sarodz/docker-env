@@ -3,7 +3,7 @@
 export CONTAINER_NAME=math-user-local
 IMAGE_NAME=math-user:local
 # choose an available port
-PORT=8889
+PORT=8888
 # mount files associated with personal settings 
 MOUNT_PATH=$HOME
 # working directory will be symlinked to /work inside of container
@@ -22,7 +22,7 @@ dr () {
     --memory="$MEM" --cpus="$CPUS" --shm-size="$SHM_SIZE" \
     -v $HOME_PATH:/home/jovyan/work \
     -v $(pwd)/setup/vimrc:/home/jovyan/.vimrc \
-    -v $(pwd)/setup/.vim:/home/jovyan/.vim \
+    -v $(pwd)/setup/vim:/home/jovyan/.vim \
     -v $(pwd)/setup/bash_aliases:/home/jovyan/.bash_aliases \
     -v $(pwd)/setup/bash_fzf:/home/jovyan/.bash_fzf \
     -v $MOUNT_PATH/docker-git-config:/home/jovyan/.gitconfig \
