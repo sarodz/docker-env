@@ -1,6 +1,6 @@
 #!/bin/bash
 # choose name for local image (as opposed to source image that Dockerfile builds from)
-IMAGE_NAME=math-user:hugo53
+IMAGE_NAME=math-user:local
 # build and tag image (which appears at top of list since it is most recent)
 docker build . && \
 docker tag $(docker images -q | head -n 1) $IMAGE_NAME
