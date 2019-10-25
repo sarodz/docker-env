@@ -37,13 +37,6 @@ RUN pip install --upgrade jupyterlab-git && jupyter lab build
 ADD setup/jupyterlab_settings /home/jovyan/.jupyter/lab/user-settings/@jupyterlab
 ENV JUPYTER_ENABLE_LAB=yes
 
-# HUGO
-USER root
-ENV HUGO_VER=0.53
-RUN wget https://github.com/gohugoio/hugo/releases/download/v${HUGO_VER}/hugo_${HUGO_VER}_Linux-64bit.deb
-RUN dpkg -i hugo*.deb
-RUN rm hugo*.deb
-
 USER $NB_UID
 
-#WORKDIR /home/${NB_USER}
+WORKDIR /home/${NB_USER}/work/repos
