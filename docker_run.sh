@@ -14,6 +14,8 @@ SHM_SIZE=1g
 MEM=3g
 # cpu
 CPUS=3.0
+
+CWD=$(pwd)
 # to disable jupyterlab by default, change line JUPYTER_ENABLE_LAB=no
 # (there are a number of notebook-specific extensions unavailable in lab)
 dr () {
@@ -21,10 +23,10 @@ dr () {
     -p $PORT:8888 \
     --memory="$MEM" --cpus="$CPUS" --shm-size="$SHM_SIZE" \
     -v $HOME_PATH:/home/jovyan/work \
-    -v $(pwd)/setup/vimrc:/home/jovyan/.vimrc \
-    -v $(pwd)/setup/vim:/home/jovyan/.vim \
-    -v $(pwd)/setup/bash_aliases:/home/jovyan/.bash_aliases \
-    -v $(pwd)/setup/bash_fzf:/home/jovyan/.bash_fzf \
+    -v $CWD/setup/vimrc:/home/jovyan/.vimrc \
+    -v $CWD/setup/vim:/home/jovyan/.vim \
+    -v $CWD/setup/bash_aliases:/home/jovyan/.bash_aliases \
+    -v $CWD/setup/bash_fzf:/home/jovyan/.bash_fzf \
     -v $MOUNT_PATH/docker-git-config:/home/jovyan/.gitconfig \
     -v $MOUNT_PATH/.ssh:/home/jovyan/.ssh \
     -v $MOUNT_PATH/.jupyterlab_settings:/home/jovyan/.jupyter/lab/user-settings/@jupyterlab \

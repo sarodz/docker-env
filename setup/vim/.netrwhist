@@ -1,11 +1,3 @@
 let g:netrw_dirhistmax  =10
-let g:netrw_dirhist_cnt =9
-let g:netrw_dirhist_1='/Users/michael.pilosov/repos/worklog'
-let g:netrw_dirhist_2='/Users/michael.pilosov/repos/worklog/Week-001'
-let g:netrw_dirhist_3='/home/jovyan/.jupyter'
-let g:netrw_dirhist_4='/home/jovyan/.jupyter/lab/user-settings/@jupyterlab/apputils-extension'
-let g:netrw_dirhist_5='/home/jovyan/.ssh'
-let g:netrw_dirhist_6='/Users/michael.pilosov/.vim/spell'
-let g:netrw_dirhist_7='/home/jovyan/work/worklog'
-let g:netrw_dirhist_8='/Users/michael.pilosov/repos/docker-env'
-let g:netrw_dirhist_9='/Users/michael.pilosov/.vim/autoload'
+let g:netrw_dirhist_cnt =1
+let g:netrw_dirhist_1='/home/jovyan/work/repos/build_staffing_automation/.git'
