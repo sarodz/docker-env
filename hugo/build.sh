@@ -1,2 +1,2 @@
-docker build . && docker tag $(docker images -q | head -n 1) hugo-image:stable
+docker build -t hugo-image:stable -f Dockerfile .
 echo "Successfully built and tagged hugo-image:stable"
