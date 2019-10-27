@@ -1,4 +1,5 @@
 FROM mathematicalmichael/math-user:stable
+
 USER root
 RUN apt-get update && \
     apt-get upgrade --yes && \ 
@@ -10,8 +11,15 @@ RUN apt-get update && \
 # ripgrep: fastest regex search available.
 RUN curl -L https://github.com/BurntSushi/ripgrep/releases/download/11.0.2/ripgrep_11.0.2_amd64.deb> ripgrep.deb && dpkg -i ripgrep.deb && rm ripgrep.deb
 
+
 USER $NB_UID
-RUN python3 -m pip install markdown2
+
+RUN python3 -m pip install \
+        markdown2 \
+        plotly \
+        ipympl
+
+RUN jupyter labextension install jupyter-matplotlib
 
 # FUZZY FINDER! 
 RUN git clone --depth 1 https://github.com/junegunn/fzf.git ~/.fzf && ~/.fzf/install --all
