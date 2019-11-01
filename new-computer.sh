@@ -6,7 +6,13 @@ sudo apt install htop \
 		 vim \
 		 screen \
 		 gpg \
-		 pass
+		 pass \
+		 git
+
+git config --global user.name ""
+git config --global user.email ""
+git config core.fileMode false
+git config --global "cache --timeout=10000"
 
 # Debian Buster and above only
 #sudo apt install ripgrep fzf
