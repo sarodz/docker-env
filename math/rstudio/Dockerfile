@@ -12,9 +12,6 @@ RUN python3 -m pip install --no-cache jupyterhub==$JUPYTERHUB_VERSION
 USER root
 COPY r_preq.sh ./tmp/r_preq.sh
 RUN ./tmp/r_preq.sh
-# Fix for devtools https://github.com/conda-forge/r-devtools-feedstock/issues/4
-#RUN ln -s /bin/tar /bin/gtar
-
 
 USER $NB_UID
 COPY r_install.sh ./tmp/r_install.sh
