@@ -14,6 +14,8 @@ if [ "$(which "$1")" = "/usr/local/bin/start-singleuser.sh" ]; then
   git clone https://gist.github.com/parente/facb555dfbae28e817e0 \
     --depth 1 \
     "$NOTEBOOK_DIR/notebook_count" || true
+  # add any additional startup hooks here.
+   
 fi
 
 # Run the command provided

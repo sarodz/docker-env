@@ -18,6 +18,20 @@ USER $NB_UID
 COPY py_install.sh ./tmp/py_install.sh
 RUN ./tmp/py_install.sh
 
+# Install packages in default Python 3 environment
+RUN pip install \
+  beautifulsoup4==4.4.*
+
+# Install packages in Python 2 environment
+#RUN $CONDA_DIR/envs/python2/bin/pip install \
+#  beautifulsoup4==4.4.*
+
+# Use custom startup script
+USER root
+COPY ../docker-entrypoint.sh /srv/docker-entrypoint.sh
+ENTRYPOINT ["tini", "--", "/srv/docker-entrypoint.sh"]
+CMD ["start-singleuser.sh"]
+
 # Cleanup
 USER root
 ADD ../clean_root.sh ./tmp/clean_root.sh
