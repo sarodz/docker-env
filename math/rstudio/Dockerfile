@@ -19,11 +19,11 @@ RUN ./tmp/r_install.sh
 
 # Cleanup
 USER root
-ADD clean_root.sh ./tmp/clean_root.sh
+ADD ../clean_root.sh ./tmp/clean_root.sh
 RUN ./tmp/clean_root.sh
 
 USER $NB_UID
-ADD clean_user.sh ./tmp/clean_user.sh
+ADD ../clean_user.sh ./tmp/clean_user.sh
 RUN ./tmp/clean_user.sh
 
 # Finalize by making sure user is not root
