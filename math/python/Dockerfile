@@ -9,14 +9,14 @@ RUN conda update -n base --yes conda
 # Jupyterhub
 RUN python3 -m pip install --no-cache jupyterhub==$JUPYTERHUB_VERSION
 
-###### R ENV #######
+###### Python ENV #######
 USER root
-COPY r_preq.sh ./tmp/r_preq.sh
-RUN ./tmp/r_preq.sh
+COPY py_preq.sh ./tmp/py_preq.sh
+RUN ./tmp/py_preq.sh
 
 USER $NB_UID
-COPY r_install.sh ./tmp/r_install.sh
-RUN ./tmp/r_install.sh
+COPY py_install.sh ./tmp/py_install.sh
+RUN ./tmp/py_install.sh
 
 # Cleanup
 USER root
