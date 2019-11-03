@@ -1,6 +1,5 @@
 ARG DOCKER_NOTEBOOK_IMAGE
 ARG INCL_PARALLEL
-ARG INCL_PYTHON27
 ARG INCL_EXTRAS
 FROM $DOCKER_NOTEBOOK_IMAGE
 ARG JUPYTERHUB_VERSION
@@ -20,8 +19,6 @@ COPY ./docker-entrypoint.sh /srv/docker-entrypoint.sh
 ENTRYPOINT ["tini", "--", "/srv/docker-entrypoint.sh"]
 CMD ["start-singleuser.sh"]
 
-ENV INCL_PY2=$INCL_PYTHON27
-ENV INCL_PAR=$INCL_PARALLEL
 COPY py_preq.sh ./tmp/py_preq.sh
 RUN ./tmp/py_preq.sh && rm ./tmp/py_preq.sh
 
