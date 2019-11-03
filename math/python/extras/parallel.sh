@@ -7,4 +7,4 @@ if $INCL_PARALLEL; then
         mpich \
         libmpich-dev \
         ;
-done
+fi
