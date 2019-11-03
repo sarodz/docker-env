@@ -1,7 +1,10 @@
 #!/bin/bash
 
 # Parallelism 
-# apt-get install -y --no-install-recommends mpich libmpich-dev
+apt-get update && \
+    apt-get install -y --no-install-recommends \
+    mpich \
+    libmpich-dev
 
 # Latex-related additions
 # the following do not appear in docker-stacks/minimal-notebook:
