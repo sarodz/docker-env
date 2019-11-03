@@ -2,7 +2,7 @@ ARG DOCKER_NOTEBOOK_IMAGE
 FROM $DOCKER_NOTEBOOK_IMAGE
 
 USER root
-# extras (optional) 
+# extras for the power user
 COPY ./extras_as_root.sh ./tmp/extras_as_root.sh
 RUN ./tmp/extras_as_root.sh && rm ./tmp/extras_as_root.sh
 
