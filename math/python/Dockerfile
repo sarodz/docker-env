@@ -14,31 +14,25 @@ RUN python3 -m pip install --no-cache jupyterhub==$JUPYTERHUB_VERSION
 ###### ROOT ENV #######
 USER root
 
-# Use custom startup script
-COPY ./docker-entrypoint.sh /srv/docker-entrypoint.sh
-ENTRYPOINT ["tini", "--", "/srv/docker-entrypoint.sh"]
-CMD ["start-singleuser.sh"]
-
 COPY py_preq.sh ./tmp/py_preq.sh
 RUN ./tmp/py_preq.sh && rm ./tmp/py_preq.sh
 
-# extras (optional) 
-ENV INCL_EXTRAS=$INCL_EXTRAS
-COPY ./extras_as_root.sh ./tmp/extras_as_root.sh
-RUN ./tmp/extras_as_root.sh && rm ./tmp/extras_as_root.sh
-
 ###### USER ENV #######
 USER $NB_UID
-COPY py_install.sh ./tmp/py_install.sh
+COPY ./py/parallel3.sh ./tmp/parallel3.sh
+COPY ./py/py3_install.sh ./tmp/py_install.sh
 RUN ./tmp/py_install.sh && rm ./tmp/py_install.sh
 RUN jupyter lab build
+
+
+# Copy python 2 installation but do not run it.
+COPY ./py/py2_install.sh ./tmp/py2_install.sh
+COPY ./py/parallel2.sh ./tmp/parallel2.sh
 
 # copy script with extra python packages (optional)
 # do not run in order to save space
 COPY ./extra_python_packages.sh ./tmp/extra_python_packages.sh
-COPY ./extensions.sh ./tmp/extensions.sh
-COPY ./parallel2.sh ./tmp/parallel2.sh
-COPY ./parallel3.sh ./tmp/parallel3.sh
+COPY ./py/extensions.sh ./tmp/extensions.sh
 
 # Cleanup
 USER root
