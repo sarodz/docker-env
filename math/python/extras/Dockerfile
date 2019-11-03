@@ -11,7 +11,9 @@ ARG INCL_PARALLEL
 ENV INCL_PARALLEL=$INCL_PARALLEL
 COPY ./parallel.sh ./tmp/parallel.sh
 RUN ./tmp/parallel.sh && rm ./tmp/parallel.sh
+RUN ./tmp/clean_root.sh
 
 USER $NB_UID
 RUN ./tmp/extensions.sh
 RUN jupyter lab build
+RUN ./tmp/clean_user.sh
