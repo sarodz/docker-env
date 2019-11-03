@@ -16,7 +16,7 @@ pull:
 	docker pull $(DOCKER_NOTEBOOK_IMAGE)
 
 notebook_image:
-	docker build -t $(IMAGE_NAME):latest \
+	docker build --no-cache -t $(IMAGE_NAME):latest \
 		--build-arg JUPYTERHUB_VERSION=$(JUPYTERHUB_VERSION) \
 		--build-arg DOCKER_NOTEBOOK_IMAGE=$(DOCKER_NOTEBOOK_IMAGE) \
 		.
@@ -28,7 +28,7 @@ notebook_image_entry:
 
 # bundle tex in for power users
 notebook_image_pro:
-	docker build -t $(IMAGE_NAME)-pro:latest \
+	docker build --no-cache -t $(IMAGE_NAME)-pro:latest \
 		--build-arg DOCKER_NOTEBOOK_IMAGE=$(IMAGE_NAME)-entry \
 		--build-arg INCL_PARALLEL=$(INCL_PARALLEL) \
 		extras \
@@ -38,7 +38,7 @@ notebook_image_pro:
 		tex
 
 notebook_image_tex:
-	docker build -t $(IMAGE_NAME)-entry-tex:latest \
+	docker build --no-cache -t $(IMAGE_NAME)-entry-tex:latest \
 		--build-arg DOCKER_NOTEBOOK_IMAGE=$(IMAGE_NAME)-entry \
 		--build-arg INCL_PARALLEL=$(INCL_PARALLEL) \
 		tex
