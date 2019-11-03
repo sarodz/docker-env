@@ -14,7 +14,7 @@ RUN python3 -m pip install --no-cache jupyterhub==$JUPYTERHUB_VERSION
 ###### ROOT ENV #######
 USER root
 
-COPY py_preq.sh ./tmp/py_preq.sh
+COPY ./py_preq.sh ./tmp/py_preq.sh
 RUN ./tmp/py_preq.sh && rm ./tmp/py_preq.sh
 
 ###### USER ENV #######
@@ -24,14 +24,13 @@ COPY ./py/py3_install.sh ./tmp/py_install.sh
 RUN ./tmp/py_install.sh && rm ./tmp/py_install.sh
 RUN jupyter lab build
 
-
 # Copy python 2 installation but do not run it.
 COPY ./py/py2_install.sh ./tmp/py2_install.sh
 COPY ./py/parallel2.sh ./tmp/parallel2.sh
 
 # copy script with extra python packages (optional)
 # do not run in order to save space
-COPY ./extra_python_packages.sh ./tmp/extra_python_packages.sh
+COPY ./py/extra_python_packages.sh ./tmp/extra_python_packages.sh
 COPY ./py/extensions.sh ./tmp/extensions.sh
 
 # Cleanup
