@@ -14,12 +14,14 @@ USER root
 
 COPY ./py_root.sh ./tmp/py_root.sh
 RUN ./tmp/py_root.sh && rm ./tmp/py_root.sh
+RUN fix-permissions ./tmp
 
 ###### USER ENV #######
 USER $NB_UID
 COPY ./py/parallel3.sh ./tmp/parallel3.sh
 COPY ./py/py3_install.sh ./tmp/py3_install.sh
-RUN ./tmp/py3_install.sh && rm ./tmp/py3_install.sh
+RUN ./tmp/py3_install.sh
+RUN rm ./tmp/py3_install.sh
 RUN jupyter lab build
 
 # Copy python 2 installation but do not run it.
