@@ -1,6 +1,4 @@
 ARG DOCKER_NOTEBOOK_IMAGE
-ARG INCL_PARALLEL
-ARG INCL_EXTRAS
 FROM $DOCKER_NOTEBOOK_IMAGE
 ARG JUPYTERHUB_VERSION
 
@@ -14,14 +12,14 @@ RUN python3 -m pip install --no-cache jupyterhub==$JUPYTERHUB_VERSION
 ###### ROOT ENV #######
 USER root
 
-COPY ./py_preq.sh ./tmp/py_preq.sh
-RUN ./tmp/py_preq.sh && rm ./tmp/py_preq.sh
+COPY ./py_root.sh ./tmp/py_root.sh
+RUN ./tmp/py_root.sh && rm ./tmp/py_root.sh
 
 ###### USER ENV #######
 USER $NB_UID
 COPY ./py/parallel3.sh ./tmp/parallel3.sh
-COPY ./py/py3_install.sh ./tmp/py_install.sh
-RUN ./tmp/py_install.sh && rm ./tmp/py_install.sh
+COPY ./py/py3_install.sh ./tmp/py3_install.sh
+RUN ./tmp/py3_install.sh && rm ./tmp/py3_install.sh
 RUN jupyter lab build
 
 # Copy python 2 installation but do not run it.
