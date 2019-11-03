@@ -14,8 +14,7 @@ jupyter labextension install jupyterlab-system-monitor
 python3 -m pip install --no-cache \
     jupyterlab_latex \
 jupyter labextension install @jupyterlab/latex
-# you can choose the default compiler for the jupyterlab latex extension
-echo "c.LatexConfig.latex_command = 'pdflatex'" >> /home/$NB_USER/.jupyter/jupyter_notebook_config.py
+jupyter labextension install @lckr/jupyterlab_variableinspector
 
 # notebook extensions
 jupyter nbextension enable snippets_menu/main
@@ -29,6 +28,8 @@ jupyter nbextension enable latex_envs/latex_envs
 jupyter nbextension enable load_tex_macros/main
 jupyter nbextension enable toc2/main
 
+# you can choose the default compiler for the jupyterlab latex extension
+echo "c.LatexConfig.latex_command = 'pdflatex'" >> /home/$NB_USER/.jupyter/jupyter_notebook_config.py
 command -v vim >/dev/null 2>&1 || { echo "export EDITOR=/usr/bin/vim" >> /home/$NB_USER/.bashrc; exit 1; }
 command -v less >/dev/null 2>&1 || { echo "export PAGER=less" >> /home/$NB_USER/.bashrc; echo "export PAGER=more" >> /home/$NB_USER/.bashrc 1; }
 git config --global credential.helper "cache --timeout 144000"

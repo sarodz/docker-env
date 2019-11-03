@@ -13,3 +13,5 @@ COPY ./parallel.sh ./tmp/parallel.sh
 RUN ./tmp/parallel.sh && rm ./tmp/parallel.sh
 
 USER $NB_UID
+RUN ./tmp/extensions.sh
+RUN jupyter lab build
