@@ -24,19 +24,21 @@ apt-get update && apt-get install -yq --no-install-recommends \
     unzip \
     nano
 
+if $INCL_EXTRAS; then 
 # The following are things that I personally like having available
-apt-get update && \
-    apt-get install -y \
-    vim \
-    htop \
-    qrencode \
-    screen \
-    tmux \
-    imagemagick \
-    less \
-    ;
-
-rm -rf /var/lib/apt/lists/*
+    apt-get update && \
+        apt-get install -y \
+        vim \
+        htop \
+        qrencode \
+        screen \
+        tmux \
+        imagemagick \
+        less \
+        ;
+    
+    rm -rf /var/lib/apt/lists/*
+fi
 
 # TODO:
 # Add ripgrep, fzf, fzf shortcuts, etc.

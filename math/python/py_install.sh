@@ -28,18 +28,20 @@ python3 -m pip install --no-cache \
     numpy \
     scipy==1.2.* \
     pandas \
-    beautifulsoup4==4.4.* \
     codecov \
-    pytest 
+    pytest \
+    virtualenv
 
 # ==================================== #
 # Python 2 environment
 # conda create --quiet --yes -p $CONDA_DIR/envs/python2 python=2.7 ipython ipykernel kernda && conda clean --all -f -y
 
+if $INCL_PYTHON27; then
 # Install packages in Python 2 environment
-# $CONDA_DIR/envs/python2/bin/pip install \
-#    numpy \
-#    matplotlib \
-#    scipy==1.2.* \
-#    pandas \
-#    beautifulsoup4==4.4.*
+    $CONDA_DIR/envs/python2/bin/pip install --no-cache \
+       numpy \
+       matplotlib \
+       scipy==1.2.* \
+       pandas \
+       ;
+fi

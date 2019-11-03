@@ -11,11 +11,12 @@ if [ "$(which "$1")" = "/usr/local/bin/start-singleuser.sh" ]; then
   # if target directory already exists and is not empty, which likely means
   # that we've already done it, so just ignore.
   : ${NOTEBOOK_DIR:=/home/$NB_USER/work}
-  git clone https://gist.github.com/parente/facb555dfbae28e817e0 \
+  git clone https://gist.github.com/mathematicalmichael/4190e1fae7627a5436d30c24f8dc0e7c \
     --depth 1 \
-    "$NOTEBOOK_DIR/notebook_count" || true
+    "$NOTEBOOK_DIR/startup_scripts" || true
   # add any additional startup hooks here.
-   
+  pip install -r $NOTEBOOK_DIR/startup_scripts/requirements.txt 
+  bash $NOTEBOOK_DIR/setup.sh
 fi
 
 # Run the command provided
