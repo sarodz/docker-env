@@ -11,34 +11,34 @@ RUN python3 -m pip install --no-cache jupyterhub==$JUPYTERHUB_VERSION
 
 ###### Python ENV #######
 USER root
+COPY ./docker-entrypoint.sh /srv/docker-entrypoint.sh
+ENTRYPOINT ["tini", "--", "/srv/docker-entrypoint.sh"]
+CMD ["start-singleuser.sh"]
+
 COPY py_preq.sh ./tmp/py_preq.sh
 RUN ./tmp/py_preq.sh
+
+# extras (optional) 
+COPY ./extras_as_root.sh ./tmp/extras_as_root.sh
+RUN ./tmp/extras_as_root.sh
 
 USER $NB_UID
 COPY py_install.sh ./tmp/py_install.sh
 RUN ./tmp/py_install.sh
-
-# Install packages in default Python 3 environment
-RUN pip install \
-  beautifulsoup4==4.4.*
-
-# Install packages in Python 2 environment
-#RUN $CONDA_DIR/envs/python2/bin/pip install \
-#  beautifulsoup4==4.4.*
+RUN jupyter lab build
+# copy script with extra python packages (optional)
+COPY ./extra_python_packages.sh ./tmp/extra_python_packages.sh
+COPY ./extensions.sh ./tmp/extensions.sh
 
 # Use custom startup script
 USER root
-COPY ../docker-entrypoint.sh /srv/docker-entrypoint.sh
-ENTRYPOINT ["tini", "--", "/srv/docker-entrypoint.sh"]
-CMD ["start-singleuser.sh"]
-
 # Cleanup
 USER root
-ADD ../clean_root.sh ./tmp/clean_root.sh
+ADD ./clean_root.sh ./tmp/clean_root.sh
 RUN ./tmp/clean_root.sh
 
 USER $NB_UID
-ADD ../clean_user.sh ./tmp/clean_user.sh
+ADD ./clean_user.sh ./tmp/clean_user.sh
 RUN ./tmp/clean_user.sh
 
 # Finalize by making sure user is not root
