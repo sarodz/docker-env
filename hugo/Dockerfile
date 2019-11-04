@@ -14,10 +14,12 @@ RUN wget https://github.com/gohugoio/hugo/releases/download/v${HUGO_VER}/hugo_${
 RUN dpkg -i hugo*.deb
 RUN rm hugo*.deb
 
-ARG NB_USER="jovyan"
-ARG NB_UID="1000"
-RUN useradd -m -s /bin/bash -N -u $NB_UID $NB_USER
+# create a non-root user of some kind to avoid run as root
+ARG USER="jovyan"
+ARG UID="1000"
+RUN useradd -m -s /bin/bash -N -u $UID $USER
 
-USER $NB_UID
+USER $UID
 
 WORKDIR /tmp
+CMD [echo "hello world"]
