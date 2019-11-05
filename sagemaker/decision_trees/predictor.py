@@ -87,7 +87,7 @@ def transformation():
         print(data)
     elif flask.request.content_type == 'application/json':
         data = flask.request.get_json(force=True)
-        data = pd.DataFrame(data)
+        data = pd.DataFrame(data, index=[0])
         print(data)
     else:
         return flask.Response(response='This predictor only supports JSON data', status=415, mimetype='text/plain')
