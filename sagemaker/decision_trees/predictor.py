@@ -74,6 +74,9 @@ def transformation():
     just means one prediction per line, since there's a single column.
     """
     data = None
+    if flask.request.method == 'GET':
+        print(dir(flask.request))
+        return 'Get is not actually supported'
 
     # Convert from CSV to pandas
     #if flask.request.content_type == 'text/csv':
@@ -85,7 +88,7 @@ def transformation():
         s = io.StringIO(data)
         data = pd.read_json(s) 
         print(data)
-    elif flask.request.content_type == 'application/json':
+    elif flask.request.content_type in ['application/json', 'x-www-form-urlencoded']:
         data = flask.request.get_json(force=True)
         data = pd.DataFrame(data, index=[0])
         print(data)
