@@ -13,33 +13,47 @@ import traceback
 import flask
 
 import pandas as pd
+import numpy as np
 
 prefix = '/opt/ml/'
 model_path = os.path.join(prefix, 'model')
 
 # A singleton for holding the model. This simply loads the model and holds it.
 # It has a predict function that does a prediction based on the model and the input data.
-
-class ScoringService(object):
-    model = None                # Where we keep the model when it's loaded
+# 
+# class ScoringService(object):
+#     model = None                # Where we keep the model when it's loaded
+# 
+#     @classmethod
+#     def get_model(cls):
+#         """Get the model object for this instance, loading it if it's not already loaded."""
+#         if cls.model == None:
+#             with open(os.path.join(model_path, 'decision-tree-model.pkl'), 'rb') as inp:
+#                 cls.model = pickle.load(inp, encoding='bytes', fix_imports=True)
+#         return cls.model
+# 
+#     @classmethod
+#     def predict(cls, input):
+#         """For the input, do the predictions and return them.
+# 
+#         Args:
+#             input (a pandas dataframe): The data on which to do the predictions. There will be
+#                 one prediction per row in the dataframe"""
+#         clf = cls.get_model()
+#         return clf.predict(input)
+# 
+class Handler(object):
+    model = None
 
     @classmethod
-    def get_model(cls):
-        """Get the model object for this instance, loading it if it's not already loaded."""
-        if cls.model == None:
-            with open(os.path.join(model_path, 'decision-tree-model.pkl'), 'rb') as inp:
-                cls.model = pickle.load(inp, encoding='bytes', fix_imports=True)
-        return cls.model
-
-    @classmethod
-    def predict(cls, input):
-        """For the input, do the predictions and return them.
+    def parse_input(cls, input):
+        """For the input, return set of budget options.
 
         Args:
-            input (a pandas dataframe): The data on which to do the predictions. There will be
-                one prediction per row in the dataframe"""
-        clf = cls.get_model()
-        return clf.predict(input)
+            input (a pandas dataframe): The settings for the simulation
+        """
+        print("Invoked Handler")
+        return None
 
 # The flask app for serving predictions
 app = flask.Flask(__name__)
@@ -62,21 +76,28 @@ def transformation():
     data = None
 
     # Convert from CSV to pandas
-    if flask.request.content_type == 'text/csv':
+    #if flask.request.content_type == 'text/csv':
+    #    data = flask.request.data.decode('utf-8')
+    #    s = io.StringIO(data)
+    #    data = pd.read_csv(s, header=None, engine='python')
+    if flask.request.content_type == 'text/json':
         data = flask.request.data.decode('utf-8')
         s = io.StringIO(data)
-        data = pd.read_csv(s, header=None, engine='python')
+        data = pd.read_json(s) 
+        print(data)
     else:
-        return flask.Response(response='This predictor only supports CSV data', status=415, mimetype='text/plain')
+        return flask.Response(response='This predictor only supports JSON data', status=415, mimetype='text/plain')
 
     print('Invoked with {} records'.format(data.shape[0]))
 
     # Do the prediction
-    predictions = ScoringService.predict(data)
+    n = 10000
+    predictions = np.random.rand(n, data.shape[1])
 
     # Convert from numpy back to CSV
     out = io.StringIO()
-    pd.DataFrame({'results':predictions}).to_csv(out, header=False, index=False)
+    D = { data.columns[i]: predictions[:,i] for i in range(data.shape[1]) }
+    pd.DataFrame(D).to_csv(out, header=False, index=False)
     result = out.getvalue()
 
     return flask.Response(response=result, status=200, mimetype='text/csv')
