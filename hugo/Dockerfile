@@ -1,25 +1,38 @@
-ARG BASE_CONTAINER=ubuntu:bionic-20190612@sha256:9b1702dcfe32c873a770a32cfd306dd7fc1c4fd134adfb783db68defc8894b3c
-FROM $BASE_CONTAINER
+FROM alpine:latest
 
-MAINTAINER Michael Pilosov <consistentbayes@gmail.com>
-
-RUN apt-get -y update && apt-get install -y --no-install-recommends \
-         wget \
-         ca-certificates \
-    && rm -rf /var/lib/apt/lists/*
+LABEL maintainer="Michael Pilosov <consistentbayes@gmail.com>"
 
 # HUGO
-ENV HUGO_VER=0.53
-RUN wget https://github.com/gohugoio/hugo/releases/download/v${HUGO_VER}/hugo_${HUGO_VER}_Linux-64bit.deb
-RUN dpkg -i hugo*.deb
-RUN rm hugo*.deb
+ENV HUGO_VERSION 0.53
+ENV HUGO_BINARY hugo_${HUGO_VERSION}_linux-64bit
 
-# create a non-root user of some kind to avoid run as root
-ARG USER="jovyan"
-ARG UID="1000"
-RUN useradd -m -s /bin/bash -N -u $UID $USER
+# Install pygments (for syntax highlighting) and bash
+RUN apk update && apk --no-cache add \
+    py-pygments \
+    bash \
+    && rm -rf /var/cache/apk/*
 
-USER $UID
+# Download and Install hugo
+RUN mkdir /usr/local/hugo
+ADD https://github.com/spf13/hugo/releases/download/v${HUGO_VERSION}/${HUGO_BINARY}.tar.gz /usr/local/hugo/
+RUN tar xzf /usr/local/hugo/${HUGO_BINARY}.tar.gz -C /usr/local/hugo/ \
+    && ln -s /usr/local/hugo/hugo /usr/local/bin/hugo \
+    && rm /usr/local/hugo/${HUGO_BINARY}.tar.gz
+
+EXPOSE 1313
+CMD hugo version
+
+ARG APP_USER="hugo"
+ARG APP_UID="1000"
+# Create a group and user
+RUN addgroup -S appgroup && \
+    adduser --disabled-password \
+            -S $APP_USER \
+            -G appgroup \
+            -s /bin/bash \
+            -u $APP_UID \
+            -g "Default user" -H
+
+USER ${APP_USER}
 
 WORKDIR /tmp
-CMD [echo "hello world"]
