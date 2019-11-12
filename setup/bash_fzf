@@ -170,7 +170,7 @@ fshow() {
 # Select a running docker container to stop
 function ds() {
   local cid
-  cid=$(docker ps --format "table {{.ID}}-{{.Names}}, {{.Image}}:{{.Ports}}" | sed 1d | fzf -q "$1" | awk '{print $1}')
+  cid=$(docker ps --format "table {{.ID}} {{.Names}}, {{.Image}}:{{.Ports}}" | sed 1d | fzf -q "$1" | awk '{print $1}')
 
   [ -n "$cid" ] && docker stop -t 5 "$cid"
 }
@@ -181,6 +181,14 @@ function drm() {
   cid=$(docker ps -a --format "table {{.ID}} \t {{.Names}} \t {{.Image}}" | sed 1d | fzf -q "$1" | awk '{print $1}')
 
   [ -n "$cid" ] && docker rm "$cid"
+}
+
+# Select a docker image to remove
+function drmi() {
+  local iid
+  iid=$(docker images --format "table {{.ID}} \t {{.Repository}}:{{.Tag}} \t {{.Size}}" | sed 1d | fzf -q "$1" | awk '{ print $2 }')
+
+  [ -n "$iid" ] && echo "\t Removing $iid ... " && docker rmi $iid
 }
 
 # Select a docker container to start and attach to
