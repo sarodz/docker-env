@@ -74,10 +74,9 @@ def transformation():
     just means one prediction per line, since there's a single column.
     """
     data = None
-    if flask.request.method == 'GET':
-        print(dir(flask.request))
-        return 'Get is not actually supported'
 
+    if flask.request.data is None:
+        return flask.Response(response='Data is empty', status=420, mimetype='text/plain')
     # Convert from CSV to pandas
     #if flask.request.content_type == 'text/csv':
     #    data = flask.request.data.decode('utf-8')
@@ -87,24 +86,25 @@ def transformation():
         data = flask.request.data.decode('utf-8')
         s = io.StringIO(data)
         data = pd.read_json(s) 
-        print(data)
-    elif flask.request.content_type in ['application/json', 'x-www-form-urlencoded']:
+    elif flask.request.content_type == 'application/json':
         data = flask.request.get_json(force=True)
         data = pd.DataFrame(data, index=[0])
-        print(data)
     else:
         return flask.Response(response='This predictor only supports JSON data', status=415, mimetype='text/plain')
 
+    print(data)
     print('Invoked with {} records'.format(data.shape[0]))
 
     # Do the prediction
     n = 10000
-    predictions = np.random.rand(n, data.shape[1])
+    predictions = 500*np.random.rand(n, data.shape[1])
+    predictions = np.round(predictions).astype(int)
 
     # Convert from numpy back to CSV
     out = io.StringIO()
     D = { data.columns[i]: predictions[:,i] for i in range(data.shape[1]) }
     pd.DataFrame(D).to_csv(out, header=False, index=False)
     result = out.getvalue()
-
-    return flask.Response(response=result, status=200, mimetype='text/csv')
+    resp = flask.Response(response=result, status=200, mimetype='text/csv')
+    resp.headers['Access-Control-Allow-Origin'] = '*'
+    return resp 
