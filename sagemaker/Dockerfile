@@ -51,3 +51,5 @@ WORKDIR /opt/program
 
 # To-Do: make a safeuser and try to run this as them (including the pip installs and COPY)
 # Also uninstall wget... not needed.
+RUN pip3 install \
+    -U flask-cors

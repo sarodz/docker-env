@@ -14,6 +14,7 @@ import flask
 
 import pandas as pd
 import numpy as np
+from flask_cors import CORS
 
 prefix = '/opt/ml/'
 model_path = os.path.join(prefix, 'model')
@@ -57,6 +58,7 @@ class Handler(object):
 
 # The flask app for serving predictions
 app = flask.Flask(__name__)
+CORS(app)
 
 @app.route('/ping', methods=['GET'])
 def ping():
@@ -106,5 +108,6 @@ def transformation():
     pd.DataFrame(D).to_csv(out, header=False, index=False)
     result = out.getvalue()
     resp = flask.Response(response=result, status=200, mimetype='text/csv')
-    resp.headers['Access-Control-Allow-Origin'] = '*'
+    resp.headers.add('Access-Control-Allow-Origin', '*')
+    #resp.headers['Access-Control-Allow-Origin'] = '*'
     return resp 
