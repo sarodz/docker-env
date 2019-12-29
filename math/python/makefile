@@ -15,6 +15,12 @@ login:
 pull:
 	docker pull $(DOCKER_NOTEBOOK_IMAGE)
 
+all:
+	make notebook_image && \
+	make notebook_image_entry && \
+	make notebook_image_tex && \
+	make notebook_image_entry_pro
+	
 notebook_image:
 	docker build --no-cache -t $(IMAGE_NAME):latest \
 		--build-arg JUPYTERHUB_VERSION=$(JUPYTERHUB_VERSION) \
@@ -27,20 +33,19 @@ notebook_image_entry:
 		entry
 
 # bundle tex in for power users
-notebook_image_pro:
-	docker build --no-cache -t $(IMAGE_NAME)-pro:latest \
+notebook_image_entry_pro:
+	docker build --no-cache -t $(IMAGE_NAME)-entry-pro:latest \
 		--build-arg DOCKER_NOTEBOOK_IMAGE=$(IMAGE_NAME)-entry \
 		--build-arg INCL_PARALLEL=$(INCL_PARALLEL) \
 		extras \
     && \
-	docker build -t $(IMAGE_NAME)-pro:latest \
-		--build-arg DOCKER_NOTEBOOK_IMAGE=$(IMAGE_NAME)-pro \
+	docker build -t $(IMAGE_NAME)-entry-pro:latest \
+		--build-arg DOCKER_NOTEBOOK_IMAGE=$(IMAGE_NAME)-entry-pro \
 		tex
 
 notebook_image_tex:
-	docker build --no-cache -t $(IMAGE_NAME)-entry-tex:latest \
-		--build-arg DOCKER_NOTEBOOK_IMAGE=$(IMAGE_NAME)-entry \
-		--build-arg INCL_PARALLEL=$(INCL_PARALLEL) \
+	docker build --no-cache -t $(IMAGE_NAME)-tex:latest \
+		--build-arg DOCKER_NOTEBOOK_IMAGE=$(IMAGE_NAME) \
 		tex
  
 .PHONY: notebook_image

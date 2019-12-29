@@ -5,9 +5,6 @@ apt-get update && \
     apt-transport-https \
     ca-certificates \
     build-essential \
-    locales \
-    tzdata \
-    lmodern \
     unzip \
     ;
 
@@ -30,6 +27,9 @@ apt-get install -y --no-install-recommends \
     fonts-dejavu \
     texlive-xetex \
     texlive-luatex \
+    locales \
+    tzdata \
+    lmodern \
     ;
 
 # build font caches

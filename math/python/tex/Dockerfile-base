@@ -1,4 +1,4 @@
-FROM ubuntu:bionic-20191202
+FROM ubuntu:disco-20191127
 ARG DEBIAN_FRONTEND=noninteractive
 USER root
 COPY ./tex_root.sh ./tmp/tex_root.sh
