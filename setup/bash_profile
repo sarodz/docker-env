@@ -19,3 +19,6 @@ HISTSIZE=1000
 HISTFILESIZE=2000
 bind '"\e[A": history-search-backward'
 bind '"\e[B": history-search-forward'
+
+# docker machine env
+eval $(docker-machine env default) > /dev/null 2>&1
