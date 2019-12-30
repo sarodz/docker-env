@@ -1,0 +1,19 @@
+# load in your custom aliases
+[ -f ~/.bash_aliases ] && source ~/.bash_aliases
+[ -f ~/.bash_completion ] && source ~/.bash_completion
+
+# SSH
+eval $(ssh-agent -s) >/dev/null 2>&1
+# ssh-add ~/.ssh/id_rsa_gitlab >/dev/null 2>&1
+
+
+# don't put duplicate lines or lines starting with space in the history.
+# See bash(1) for more options
+HISTCONTROL=ignoreboth
+
+# append to the history file, don't overwrite it
+shopt -s histappend
+HISTSIZE=1000
+HISTFILESIZE=2000
+bind '"\e[A": history-search-backward'
+bind '"\e[B": history-search-forward'

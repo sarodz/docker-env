@@ -6,6 +6,22 @@ if [ -f ~/.bash_fzf ]; then
 fi
 alias srv='python -m http.server'
 alias erc='vim ~/.bash_aliases'
+alias sm='ssh pilosovm@math.ucdenver.edu -p 10044'
+alias ytmp3='youtube-dl --extract-audio --audio-format mp3'
+
+hub(){
+    ssh mathematicalmichael@math.computer "screen -dS hub -m bash -c 'ssh -L 8001:math-hub.ucdenver.pvt:8000 pilosovm@math.ucdenver.edu -p 10044'";
+}
+unhub(){
+    ssh mathematicalmichael@math.computer "screen -X -S hub kill";
+}
+work(){
+    screen -dS workstation -m bash -c 'ssh -L 8888:math-ws-204.ucdenver.pvt:8888 pilosovm@math.ucdenver.edu -p 10044';
+}
+unwork(){
+    screen -X -S workstation kill;
+}
+
 # watch "markdown"
 md () {
     markdown2 --extras footnotes,task_list,fenced-code-blocks,cuddled-lists \"$1\" > index.html
@@ -20,7 +36,8 @@ if [ -f ~/.bash_profile ]; then
     . ~/.bashrc
 fi
 }
-
+# make and enter directory
+mcd () { mkdir -p "$1" && cd "$1"; }
 alias ..='cd ../'                         # Move up 1 directory
 alias ...='cd ../../'                     # Move up 2 directories
 alias ....='cd ../../../'                 # Move up 3 directories
@@ -44,11 +61,14 @@ alias gitrm='git config credential.helper ""'
 # Docker
 alias dps='docker ps -a --format "table {{.ID}} \t {{.Names}} \t {{.Status}} \t {{.Ports}} \t {{.Image}} "'
 alias wdps="watch -n1 \'docker ps --format \"table \t{{.Names}}\t {{.Status}} \t {{.Ports}} \t {{.Image}} \"\'"
+
 alias drun='docker run --rm -p 8008:8008 --name math-user-temp -v $(pwd):/tmp --workdir /tmp $(docker images --format "table {{.Repository}}:{{.Tag}}" | fzf)'
 alias druni='docker run -ti --rm -p 8008:8008 --name math-user-temp -v $(pwd):/tmp --workdir /tmp $(docker images --format "table {{.Repository}}:{{.Tag}}" | fzf)'
+
+# this is one way to do it... I prefer the executable route.
 #HUGO_IMAGE=mathematicalmichael/hugo53:stable
-HUGO_IMAGE=hugo-image:stable
-alias hugo53='docker run --rm -p 1111:1111 --name hugo-user-temp -v $(pwd):/tmp --workdir /tmp ${HUGO_IMAGE} hugo'
-alias hugo53server='hugo53 server --disableFastRender --port 1111 --bind 0.0.0.0'
+#HUGO_IMAGE=hugo-image:stable
+#alias hugo53='docker run --rm -p 1111:1111 --name hugo-user-temp -v $(pwd):/tmp --workdir /tmp ${HUGO_IMAGE} hugo'
+#alias hugo53server='hugo53 server --disableFastRender --port 1111 --bind 0.0.0.0'
 # "fake symlink" to hugo, allowing you to pick a default version
-alias hugo='hugo53'
+#alias hugo='hugo53'
