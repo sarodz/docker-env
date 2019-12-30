@@ -14,6 +14,9 @@ git config --global user.email ""
 git config core.fileMode false
 git config --global "cache --timeout=10000"
 
+mkdir -p ~/.vim/autoload ~/.vim/bundle && \
+curl -LSso ~/.vim/autoload/pathogen.vim https://tpo.pe/pathogen.vim
+
 # Debian Buster and above only
 #sudo apt install ripgrep fzf
 
