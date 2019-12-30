@@ -57,7 +57,7 @@ bcp() {
 
 # Terminal
 # ------------
-function cd() {
+function fcd() {
     if [[ "$#" != 0 ]]; then
         builtin cd "$@";
         return
