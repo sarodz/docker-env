@@ -14,7 +14,6 @@ import flask
 
 import pandas as pd
 import numpy as np
-from flask_cors import CORS
 
 prefix = '/opt/ml/'
 model_path = os.path.join(prefix, 'model')
@@ -58,7 +57,6 @@ class Handler(object):
 
 # The flask app for serving predictions
 app = flask.Flask(__name__)
-CORS(app)
 
 @app.route('/ping', methods=['GET'])
 def ping():
