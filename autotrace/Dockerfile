@@ -5,7 +5,7 @@ RUN apt-get update && \
     && apt-get clean \
     && rm -rf /var/lib/apt/lists/* /tmp/* /var/tmp/* \
     && apt-get autoremove -y
-
+RUN apt-get update && apt-get install git
 RUN cd /tmp && \
     git clone --depth 1 https://github.com/autotrace/autotrace.git && \
     cd autotrace && \
