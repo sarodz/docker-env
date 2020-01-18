@@ -8,6 +8,8 @@ PORT=8888
 MOUNT_PATH=$HOME
 # working directory will be symlinked to /work inside of container
 HOME_PATH=$HOME
+# image name to run
+IMAGE_NAME=math-user:hugo53
 # shared memory
 SHM_SIZE=1g
 # ram
