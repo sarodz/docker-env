@@ -1,0 +1,4 @@
+#!/bin/sh
+IMAGE_NAME=python:latest
+COMMAND=python
+docker run --rm -it -p 8000:8000 -v $(pwd):/$(pwd) -w $(pwd) $IMAGE_NAME $COMMAND "$@"

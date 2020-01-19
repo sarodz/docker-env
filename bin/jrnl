@@ -1,0 +1,7 @@
+#!/bin/sh
+IMAGE_NAME=jrnl:latest
+COMMAND=jrnl
+docker run -ti --rm \
+    -v ~/journal/jrnl.yaml:/home/safeuser/.config/jrnl/jrnl.yaml  \
+    -v ~/journal:/home/safeuser/journal \
+    $IMAGE_NAME $COMMAND "$@"

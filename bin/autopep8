@@ -1,0 +1,4 @@
+#!/bin/sh
+IMAGE_NAME=python:thesis
+COMMAND=autopep8
+docker run --rm -it -v $(pwd):/tmp -w /tmp $IMAGE_NAME $COMMAND "$@"

@@ -1,0 +1,7 @@
+#!/bin/sh
+IMAGE_NAME=python:thesis
+COMMAND=python
+#docker run -ti --rm -v $(pwd):/tmp -w /tmp $IMAGE_NAME $COMMAND "$@"
+docker run -e DISPLAY -v /tmp/.X11-unix:/tmp/.X11-unix -ti --rm -v $(pwd):/tmp -w /tmp $IMAGE_NAME $COMMAND "$@"
+# mounting to /tmp to purposefully avoid hard-coding paths in scripts
+# if you have paths like /home/username/..., your code will fail

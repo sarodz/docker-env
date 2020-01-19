@@ -1,0 +1,4 @@
+#!/bin/sh
+IMAGE_NAME=exif
+COMMAND=exiftool
+docker run --rm -ti -v $(pwd):/tmp -w /tmp $IMAGE_NAME $COMMAND "$@"

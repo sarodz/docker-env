@@ -1,0 +1,4 @@
+#!/bin/sh
+IMAGE_NAME=streamlit:latest
+COMMAND=streamlit
+docker run --rm -p 8501:8501 -v $(pwd):/tmp -w /tmp $IMAGE_NAME $COMMAND $@ --browser.serverAddress 0.0.0.0 --server.enableCORS False

@@ -6,10 +6,14 @@
 	thesis \
 	kubectl \
 	autotrace \
+	jrnl \
 	exif
 
 
 all: hugo autotrace pythons thesis
+
+jrnl: jrnl/Dockerfile
+	docker build -t jrnl jrnl/
 
 kubectl:
 	docker pull lachlanevenson/k8s-kubectl:v1.17.0

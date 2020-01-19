@@ -1,0 +1,4 @@
+#!/bin/sh
+IMAGE_NAME=hugo-image:latest
+COMMAND=hugo
+docker run --rm -p 1313:1313 -ti -v $(pwd):/tmp -w /tmp $IMAGE_NAME $COMMAND "$@"
