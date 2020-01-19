@@ -3,13 +3,16 @@ FROM alpine:latest
 LABEL maintainer="Michael Pilosov <consistentbayes@gmail.com>"
 
 # HUGO
-ENV HUGO_VERSION 0.53
+ARG VER
+ENV HUGO_VERSION ${VER}
 ENV HUGO_BINARY hugo_${HUGO_VERSION}_linux-64bit
 
 # Install pygments (for syntax highlighting) and bash
-RUN apk update && apk --no-cache add \
+RUN apk update && \
+    apk --no-cache add \
     py-pygments \
     bash \
+    git \
     && rm -rf /var/cache/apk/*
 
 # Download and Install hugo
