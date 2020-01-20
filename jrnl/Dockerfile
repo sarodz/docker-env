@@ -13,7 +13,7 @@ RUN apk update && \
     ${PKGS} \
     && rm -rf /var/cache/apk/*
 
-RUN pip install -U jrnl
+RUN pip install -U jrnl keyrings.alt
 ARG APP_USER="safeuser"
 ARG APP_UID="1000"
 
@@ -30,7 +30,7 @@ RUN addgroup -S appgroup && \
             chown -R ${APP_USER}:appgroup /home/$APP_USER/ && \
             chown -R ${APP_USER}:appgroup /tmp
 
-
+# Time zone config
 RUN apk update && \
     apk --no-cache add \
     tzdata \
