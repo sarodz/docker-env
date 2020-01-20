@@ -1,0 +1,4 @@
+#!/bin/sh
+IMAGE_NAME=imagemagick:latest
+COMMAND=mogrify
+docker run -ti --rm -v $(pwd):/temp -w /temp $IMAGE_NAME $COMMAND "$@"

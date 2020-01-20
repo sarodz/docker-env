@@ -1,0 +1,24 @@
+#!/bin/bash
+if [ $# -eq 0 ]; then
+    echo "No arguments provided"
+else
+FNAME="$(pwd)/pr-$1"
+if [ -f $FNAME ]; then
+    rm $FNAME
+fi
+touch $FNAME
+declare -a PROPS=(
+"Date/Time Original"
+"F Number"
+"Focal Length In 35mm Format"
+"ISO"
+"Exposure Time"
+"Image Width"
+"Image Height"
+"Depth Of Field"
+)
+for i in "${PROPS[@]}"; do
+    echo $i;
+    cat $1 | grep -E "^$i" | head -n 1 | sed s'/_/,\ /g' | sed s'///g' | sed s'/\ :\ /\ |\ /g' >> $FNAME
+done
+fi

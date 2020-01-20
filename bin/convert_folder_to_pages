@@ -1,0 +1,16 @@
+#!/bin/bash
+ALBUM=${PWD##*/}
+IMGS=$(ls *.JPG | sed s'/.JPG//g' )
+mkdir -p pages/
+for i in $IMGS; do
+    exif $i.JPG > $i.txt
+    extract_info $i.txt
+    echo ""
+    echo "Building page for $i"
+    cat template.md | sed "s/IMAGE_NAME/$i/g" | sed "s/ALBUM_NAME/$ALBUM/g" > pages/$i.md
+    echo "Property | Value" >> pages/$i.md
+    echo "---------|------" >> pages/$i.md
+    cat pr-$i.txt >> pages/$i.md
+    rm pr-$i.txt
+    rm $i.txt
+done
