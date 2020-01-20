@@ -1,3 +1,5 @@
 docker_run_new.sh
+*.weights
+*.cfg
 .ipynb_checkpoints/
 .DS_Store
