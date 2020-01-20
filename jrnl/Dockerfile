@@ -29,6 +29,16 @@ RUN addgroup -S appgroup && \
             mkdir /home/$APP_USER && \
             chown -R ${APP_USER}:appgroup /home/$APP_USER/ && \
             chown -R ${APP_USER}:appgroup /tmp
+
+
+RUN apk update && \
+    apk --no-cache add \
+    tzdata \
+    && cp /usr/share/zoneinfo/America/Denver /etc/localtime \
+    && echo "America/Denver" >  /etc/timezone \
+    && apk del tzdata \
+    && rm -rf /var/cache/apk/*
+
 USER ${APP_USER}
 
 WORKDIR /home/${APP_USER}
